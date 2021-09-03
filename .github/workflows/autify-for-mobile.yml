@@ -62,7 +62,7 @@ jobs:
           xcodebuild \
             -project AwesomeProject-iOS.xcodeproj \
             -scheme AwesomeProject-iOS \
-            -destination ${SIMULATOR_ID} \
+            -destination id=${SIMULATOR_ID} \
             -configuration Debug \
             -showBuildSettings \
             COMPILER_INDEX_STORE_ENABLE=NO \
