@@ -16,12 +16,49 @@ on:
 jobs:
   build:
     runs-on: macos-11
+    env:
+      #  specify the Xcode version Explicitly
+      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app
 
     steps:
       - uses: actions/checkout@v2
       
-      - name: Print macOS version
-        run: sw_vers
+      # [Optional step]
+      - name: CI environment information
+        run: |
+           # Output macOS version
+           sw_vers
+           
+           # List Xcode apps
+           ls -n /Applications/ | grep Xcode
+           
+           # Output Xcode version
+           xcodebuild -version
+           
+           # Output
+           xcpretty --version
 
-      - name: Print Xcodes
-        run: ls -n /Applications/ | grep Xcode
+      # [Required step]
+      # Builds a new build file
+      # 
+      # xcodebuild
+      #   [-project <projectname>] or [-workspace <workspacename>] \
+      #   -scheme <schemeName> \
+      #   -destination <destinationspecifier>
+      #   -configuration <configurationname> \
+      #   -showBuildSettings \
+      #   COMPILER_INDEX_STORE_ENABLE=NO \
+      #   build | xcpretty
+#       - name: Build a new build file for iOS Simulator
+#         run: |
+#           readonly simulatorID=
+        
+#           xcodebuild \
+#             -project "" \
+#             -schema "" \
+#             -destination ${simulatorID} \
+#             -configuration Debug \
+#             -showBuildSettings \
+#             COMPILER_INDEX_STORE_ENABLE=NO \
+#             build | xcpretty
+        
