@@ -47,7 +47,7 @@ jobs:
       # [Required step]
       # Builds a new build file
       # 
-      # xcodebuild
+      # xcodebuild \
       #   [-project <projectname>] or [-workspace <workspacename>] \
       #   -scheme <schemeName> \
       #   -destination <destinationspecifier>
@@ -58,4 +58,14 @@ jobs:
       - name: Build a new build file for iOS Simulator
         run: |
           readonly SIMULATOR_ID=$(xcrun simctl list devices --json | jq '.devices.'\"com.apple.CoreSimulator.SimRuntime.iOS-14-5\"'[] | select(.name=="iPhone 12").udid')
-        
+          
+          xcodebuild \
+            -project AwesomeProject-iOS.xcodeproj \
+            -scheme AwesomeProject-iOS \
+            -destination ${SIMULATOR_ID} \
+            -configuration Debug \
+            -showBuildSettings \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            build | xcpretty
+            
+
