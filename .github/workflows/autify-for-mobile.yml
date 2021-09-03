@@ -26,19 +26,19 @@ jobs:
       # [Optional step]
       - name: CI environment information
         run: |
-           printf "\n→ sw_vers"
+           printf "\n→ sw_vers\n"
            sw_vers
            
-           printf "\n→ ls -n /Applications/ | grep Xcode"
+           printf "\n→ ls -n /Applications/ | grep Xcode\n"
            ls -n /Applications/ | grep Xcode
            
-           printf "\n→ xcodebuild -version"
+           printf "\n→ xcodebuild -version\n"
            xcodebuild -version
            
-           printf "\n→ xcpretty --version"
+           printf "\n→ xcpretty --version\n"
            xcpretty --version
            
-           printf "\n→jq --version"
+           printf "\n→ jq --version\n"
            jq --version
 
       # [Required step]
