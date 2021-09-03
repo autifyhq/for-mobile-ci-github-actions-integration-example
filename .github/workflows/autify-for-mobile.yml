@@ -38,6 +38,9 @@ jobs:
            printf "\n→ xcpretty --version\n"
            xcpretty --version
            
+           printf "\n→ xcrun simctl list devices\n"
+           xcrun simctl list devices
+           
            printf "\n→ jq --version\n"
            jq --version
 
