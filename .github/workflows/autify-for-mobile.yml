@@ -57,7 +57,5 @@ jobs:
       #   build | xcpretty
       - name: Build a new build file for iOS Simulator
         run: |
-          readonly SIMULATOR_ID=$(xcrun simctl list devices --json | jq '.devices.'\"com.apple.CoreSimulator.SimRuntime.iOS-14-4\"'[] | select(.name=="iPhone 12").udid')
-          
-          echo $SIMULATOR_ID
+          readonly SIMULATOR_ID=$(xcrun simctl list devices --json | jq '.devices.'\"com.apple.CoreSimulator.SimRuntime.iOS-14-5\"'[] | select(.name=="iPhone 12").udid')
         
