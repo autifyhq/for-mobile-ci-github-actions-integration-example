@@ -45,7 +45,6 @@ jobs:
            jq --version
 
       # [Required step]
-      # Builds a new build file
       # 
       # xcodebuild \
       #   [-project <projectname>] or [-workspace <workspacename>] \
@@ -56,19 +55,26 @@ jobs:
       #   build | xcpretty
       - name: Build a new build file for iOS Simulator
         run: |
-          readonly SIMULATOR_ID=$(xcrun simctl list devices --json | jq -r '.devices.'\"com.apple.CoreSimulator.SimRuntime.iOS-14-5\"'[] | select(.name=="iPhone 12").udid')
-          readonly 
+          # Get SIMULATOR_UDID
+          readonly SIMULATOR_UDID=$(xcrun simctl list devices --json | jq -r '.devices.'\"com.apple.CoreSimulator.SimRuntime.iOS-14-5\"'[] | select(.name=="iPhone 12").udid')
           
+          # Build
           xcodebuild \
             -project AwesomeProject-iOS.xcodeproj \
             -scheme AwesomeProject-iOS \
-            -destination id=${SIMULATOR_ID} \
+            -destination id=${SIMULATOR_UDID} \
             -configuration Debug \
-            -derivedDataPath . \
             COMPILER_INDEX_STORE_ENABLE=NO \
             build | xcpretty
             
-          ls
+      # [Required step]
+      - name: Upload the build file to Autify for Mobile
+        run: |
+          # Get BUILD_PATH
+          readonly BUILD_PATH=$(xcodebuild \
+            -project AwesomeProject-iOS.xcodeproj \
+            -showBuildSettings | grep "^\s*BUILD_DIR" | sed 's/[[:space:]]//g' | sed 's/BUILD_DIR=//')
+          
             
             
           
